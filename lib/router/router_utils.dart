@@ -1,4 +1,15 @@
-enum Pages { signIn, signUp, passwordReset, sendCode, projects, addProject, editProject }
+enum Pages {
+  signIn,
+  signUp,
+  passwordReset,
+  sendCode,
+  projects,
+  addProject,
+  updateProject,
+  jobs,
+  addJob,
+  updateJob,
+}
 
 extension AppPageExtension on Pages {
   String get screenPath {
@@ -9,7 +20,10 @@ extension AppPageExtension on Pages {
       Pages.passwordReset => 'passwordReset',
       Pages.projects => '/projects',
       Pages.addProject => 'addProject',
-      Pages.editProject => 'editProject',
+      Pages.updateProject => 'updateProject',
+      Pages.jobs => '/jobs',
+      Pages.addJob => 'addJob',
+      Pages.updateJob => 'updateJob',
     };
   }
 
@@ -21,7 +35,10 @@ extension AppPageExtension on Pages {
       Pages.passwordReset => 'PASSWORDRESET',
       Pages.projects => 'PROJECTS',
       Pages.addProject => 'ADDPROJECT',
-      Pages.editProject => 'EDITPROJECT',
+      Pages.updateProject => 'UPDATEPROJECT',
+      Pages.jobs => 'JOBS',
+      Pages.addJob => 'ADDJOB',
+      Pages.updateJob => 'UPDATEJOB',
     };
   }
 }

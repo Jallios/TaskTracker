@@ -17,17 +17,17 @@ class ProjectCubit extends Cubit<ProjectState> {
     result.fold((l) {
       emit(ProjectError(error: _mapFailureToMessage(l)));
     }, (r) {
-      emit(ProjectSuccess(entities: r, entity: ProjectEntity()));
+      emit(ProjectSuccess(entities: r));
     });
   }
 
-  Future<void> addProjectUserRole(ProjectUserRoleEntity entity) async {
+  Future<void> addProjectUserRole(ProjectEntity entity) async {
     emit(ProjectLoad());
     final result = await useCase.addProjectUserRole(entity);
     result.fold((l) {
       emit(ProjectError(error: _mapFailureToMessage(l)));
     }, (r) {
-      emit(ProjectSuccess(entities: List.empty(), entity: ProjectEntity()));
+      emit(ProjectSuccess(entities: List.empty()));
     });
   }
 
@@ -37,17 +37,17 @@ class ProjectCubit extends Cubit<ProjectState> {
     result.fold((l) {
       emit(ProjectError(error: _mapFailureToMessage(l)));
     }, (r) {
-      emit(ProjectSuccess(entities: List.empty(), entity: ProjectEntity()));
+      emit(ProjectSuccess(entities: List.empty()));
     });
   }
 
-  Future<void> getProjectUserRoleById(int id) async {
+  Future<void> updateProjectUserRole(int id, ProjectEntity entity) async {
     emit(ProjectLoad());
-    final result = await useCase.getProjectUserRoleById(id);
+    final result = await useCase.updateProjectUserRole(id, entity);
     result.fold((l) {
       emit(ProjectError(error: _mapFailureToMessage(l)));
     }, (r) {
-      emit(ProjectSuccess(entities: List.empty(), entity: r));
+      emit(ProjectSuccess(entities: List.empty()));
     });
   }
 

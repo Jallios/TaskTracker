@@ -19,7 +19,7 @@ class ProjectUseCase {
   }
 
   Future<Either<Failure, Response>> addProjectUserRole(
-      ProjectUserRoleEntity entity) async {
+      ProjectEntity entity) async {
     try {
       return await repository.addProjectUserRole(entity);
     } catch (_) {
@@ -35,9 +35,10 @@ class ProjectUseCase {
     }
   }
 
-  Future<Either<Failure, ProjectEntity>> getProjectUserRoleById(int id) async {
+  Future<Either<Failure, Response>> updateProjectUserRole(
+      int id, ProjectEntity entity) async {
     try {
-      return await repository.getProjectUserRoleById(id);
+      return await repository.updateProjectUserRole(id, entity);
     } catch (_) {
       throw Exception();
     }

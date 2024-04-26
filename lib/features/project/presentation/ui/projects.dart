@@ -15,7 +15,7 @@ class Projects extends StatefulWidget {
 
 class _ProjectsState extends State<Projects> {
   Future<void> _refresh() async {
-    await Future.delayed(Duration(milliseconds: 1));
+    await Future.delayed(Duration(seconds: 1));
     setState(() {
       context.read<ProjectCubit>().getProjectsUser();
     });
@@ -66,10 +66,7 @@ class _ProjectsState extends State<Projects> {
                                     title: Text(
                                         '${entities[index].project!.title}'),
                                     subtitle: Text(
-                                        DateFormat("yyyy-MM-dd – kk:mm").format(
-                                            entities[index]
-                                                .project!
-                                                .deadline!)),
+                                        'Deadline: ${entities[index].project?.deadline == null ? "No deadline" : DateFormat("yyyy-MM-dd – kk:mm").format(entities[index].project!.deadline!)}'),
                                     trailing: Builder(
                                       builder: (context) {
                                         if (entities[index].roleId == 1) {
@@ -77,8 +74,9 @@ class _ProjectsState extends State<Projects> {
                                               icon: const Icon(Icons.edit),
                                               onPressed: () {
                                                 AppRouter.router.pushNamed(
-                                                    Pages
-                                                        .editProject.screenName);
+                                                    Pages.updateProject.screenName,
+                                                    extra: entities[index]
+                                                        .project);
                                               });
                                         } else {
                                           return const SizedBox.shrink();
@@ -115,7 +113,7 @@ class _ProjectsState extends State<Projects> {
                                             )
                                           ],
                                         ),
-                                      ).then((value) => setState(() {
+                                      ).then((_) => setState(() {
                                             _refresh();
                                           }));
                                     },
@@ -124,9 +122,7 @@ class _ProjectsState extends State<Projects> {
                               : Container();
                         },
                       ),
-                    ProjectError(:final error) => Center(
-                        child: Text(error!),
-                      ),
+                    ProjectError(:final error) => Center(child: Text('$error')),
                     _ => const Center(child: CircularProgressIndicator())
                   };
                 },

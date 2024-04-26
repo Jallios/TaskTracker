@@ -30,7 +30,7 @@ class ProjectRepositoryImpl implements ProjectRepository {
 
   @override
   Future<Either<Failure, Response>> addProjectUserRole(
-      ProjectUserRoleEntity entity) async {
+      ProjectEntity entity) async {
     try {
       final result = await remote.addProjectUserRole(entity.toModel());
       return Right(result);
@@ -40,7 +40,7 @@ class ProjectRepositoryImpl implements ProjectRepository {
       return Left(UserFailure(message: e.message));
     }
   }
-  
+
   @override
   Future<Either<Failure, Response>> deleteProjectUserRole(int id) async {
     try {
@@ -54,10 +54,11 @@ class ProjectRepositoryImpl implements ProjectRepository {
   }
 
   @override
-  Future<Either<Failure, ProjectEntity>> getProjectUserRoleById(int id) async{
+  Future<Either<Failure, Response>> updateProjectUserRole(
+      int id, ProjectEntity entity) async {
     try {
-      final result = await remote.getProjectUserRoleById(id);
-      return Right(result.toEntity());
+      final result = await remote.updateProjectUserRole(id, entity.toModel());
+      return Right(result);
     } on ServerExeption {
       return Left(ServerFailure());
     } on UserExeption catch (e) {

@@ -6,9 +6,8 @@ import 'package:task_tracker_flutter/core/network/api_entrypoints.dart';
 
 abstract interface class ProjectRemote {
   Future<List<ProjectUserRoleModel>> getProjectsUser();
-  Future<Response> addProjectUserRole(ProjectUserRoleModel model);
+  Future<Response> addProjectUserRole(ProjectModel model);
   Future<Response> deleteProjectUserRole(int id);
-  Future<ProjectModel> getProjectUserRoleById(int id);
   Future<Response> updateProjectUserRole(int id, ProjectModel model);
 }
 
@@ -34,10 +33,10 @@ class ProjectRemoteImpl implements ProjectRemote {
   }
 
   @override
-  Future<Response> addProjectUserRole(ProjectUserRoleModel model) async {
+  Future<Response> addProjectUserRole(ProjectModel model) async {
     try {
       final response =
-          await dio.post(ApiEndpoints.projectUserRoles, data: model.toJson());
+          await dio.post(ApiEndpoints.projects, data: model.toJson());
       return response;
     } on DioException catch (e) {
       if (e.type == DioExceptionType.badResponse) {
@@ -47,12 +46,11 @@ class ProjectRemoteImpl implements ProjectRemote {
       }
     }
   }
-  
+
   @override
-  Future<Response> deleteProjectUserRole(int id) async{
+  Future<Response> deleteProjectUserRole(int id) async {
     try {
-      final response =
-          await dio.delete("${ApiEndpoints.projects}/$id");
+      final response = await dio.delete("${ApiEndpoints.projects}/$id");
       return response;
     } on DioException catch (e) {
       if (e.type == DioExceptionType.badResponse) {
@@ -62,13 +60,13 @@ class ProjectRemoteImpl implements ProjectRemote {
       }
     }
   }
-  
+
   @override
-  Future<ProjectModel> getProjectUserRoleById(int id) async{
+  Future<Response> updateProjectUserRole(int id, ProjectModel model) async {
     try {
       final response =
-          await dio.get("${ApiEndpoints.projects}/$id");
-      return ProjectModel.fromJson(response.data);
+          await dio.put("${ApiEndpoints.projects}/$id", data: model.toJson());
+      return response;
     } on DioException catch (e) {
       if (e.type == DioExceptionType.badResponse) {
         throw UserExeption(message: e.response?.data);
@@ -76,11 +74,5 @@ class ProjectRemoteImpl implements ProjectRemote {
         throw ServerExeption();
       }
     }
-  }
-  
-  @override
-  Future<Response> updateProjectUserRole(int id, ProjectModel model) {
-    // TODO: implement updateProjectUserRole
-    throw UnimplementedError();
   }
 }

@@ -14,7 +14,6 @@ final class ProjectError extends ProjectState {
 
 final class ProjectSuccess extends ProjectState {
   final List<ProjectUserRoleEntity>? entities;
-  final ProjectEntity? entity;
-
-  ProjectSuccess({required this.entities, required this.entity});
+  
+  ProjectSuccess({required this.entities});
 }

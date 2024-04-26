@@ -10,8 +10,11 @@ class ProjectModel {
     return ProjectModel(
         idProject: json['idProject'],
         title: json['title'],
-        publish: DateTime.tryParse(json['publish']),
-        deadline: DateTime.tryParse(json['deadline']));
+        publish:
+            json['publish'] != null ? DateTime.tryParse(json['publish']) : null,
+        deadline: json['deadline'] != null
+            ? DateTime.tryParse(json['deadline'])
+            : null);
   }
 
   Map<String, dynamic> toJson() {

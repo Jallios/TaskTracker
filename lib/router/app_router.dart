@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:task_tracker_flutter/core/emm/entity/project_entity.dart';
 import 'package:task_tracker_flutter/di/service.dart';
 import 'package:task_tracker_flutter/features/auth/data/data_source/auth_local_data_source.dart';
 import 'package:task_tracker_flutter/features/auth/presentation/cubit/auth_cubit.dart';
@@ -8,9 +9,9 @@ import 'package:task_tracker_flutter/features/auth/presentation/ui/sendCode.dart
 import 'package:task_tracker_flutter/features/auth/presentation/ui/signIn.dart';
 import 'package:task_tracker_flutter/features/auth/presentation/ui/signUp.dart';
 import 'package:task_tracker_flutter/features/project/presentation/cubit/project_cubit.dart';
-import 'package:task_tracker_flutter/features/project/presentation/ui/addProject.dart';
-import 'package:task_tracker_flutter/features/project/presentation/ui/editProject.dart';
+import 'package:task_tracker_flutter/features/project/presentation/ui/add_project.dart';
 import 'package:task_tracker_flutter/features/project/presentation/ui/projects.dart';
+import 'package:task_tracker_flutter/features/project/presentation/ui/update_project.dart';
 import 'package:task_tracker_flutter/router/router_utils.dart';
 
 class AppRouter {
@@ -81,11 +82,11 @@ class AppRouter {
               ),
             ),
             GoRoute(
-              path: Pages.editProject.screenPath,
-              name: Pages.editProject.screenName,
+              path: Pages.updateProject.screenPath,
+              name: Pages.updateProject.screenName,
               builder: (context, state) => BlocProvider(
                 create: (context) => service<ProjectCubit>(),
-                child: EditProject(),
+                child: UpdateProject(entity: state.extra as ProjectEntity),
               ),
             ),
           ]),
